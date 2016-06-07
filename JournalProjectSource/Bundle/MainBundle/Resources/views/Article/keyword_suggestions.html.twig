@@ -1,0 +1,14 @@
+<h4>Suggestions</h4>
+{% for name, favorite in suggested_keywords %}
+	{% if favorite %}
+		<div class="left-input-suggested"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-1.png') }}" value="{{ name }}"></div>
+	{% else %}
+		<div class="left-input-suggested"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-2.png') }}" value="{{ name }}"></div>
+	{% endif %}
+    <div class="checkbox left-input">
+		<label><input type="checkbox" name="extra_fields[]" value="{{ name }}">{{ name }}</label>
+	</div>
+{% endfor %}
+{% if suggested_keywords|length == 0 %}
+	<p>Aucune suggestion de mots clés.</p>
+{% endif %}

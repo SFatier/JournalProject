@@ -1,0 +1,16 @@
+#appendedInputSearch{
+	width: 500px;
+}
+#orderBy{
+	width: 243px;
+}
+#logoTribuca{
+	margin-bottom: 30px;
+}
+.right-form {
+	float: right;
+}
+
+.left-form {
+	overflow: hidden;
+}

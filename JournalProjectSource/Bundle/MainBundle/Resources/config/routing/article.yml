@@ -1,0 +1,98 @@
+article:
+    path:     /
+    defaults: { _controller: "TribucaMainBundle:Article:index" }
+
+article_new:
+    path:     /{newspaper_id}/new
+    defaults: { _controller: "TribucaMainBundle:Article:new" }
+    requirements:
+        newspaper_id:  \d+
+
+article_create:
+    path:     /create
+    defaults: { _controller: "TribucaMainBundle:Article:create" }
+    requirements: { _method: post }
+
+article_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "TribucaMainBundle:Article:edit" }
+    requirements:
+        id:  \d+
+
+article_update:
+    path:     /{id}/update
+    defaults: { _controller: "TribucaMainBundle:Article:update" }
+    requirements: { _method: post|put }
+
+article_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "TribucaMainBundle:Article:delete" }
+    requirements: { _method: post|delete }
+
+#Article deletion by ajax
+article_ajax_delete:
+  pattern: /ajax_delete
+  defaults: { _controller: TribucaMainBundle:Article:ajax_delete }
+  requirements:
+    _method: POST
+
+# custom route for ajax request
+article_ajax_save_and_continue:
+  pattern: /ajax_save_and_continue
+  defaults: { _controller: TribucaMainBundle:Article:ajax_saveAndContinue }
+  requirements:
+    _method: POST
+
+# custom route for ajax request
+article_ajax_save:
+  pattern: /ajax_save
+  defaults: { _controller: TribucaMainBundle:Article:ajax_save }
+  requirements:
+    _method: POST
+
+article_valid_form_forParse:
+  pattern: /valid_form_forParse
+  defaults: { _controller: TribucaMainBundle:Article:valid_form_forParse }
+  requirements:
+    _method: POST
+
+article_ajax_parse:
+  pattern: /ajax_parse
+  defaults: { _controller: TribucaMainBundle:Article:ajax_parse }
+  requirements:
+    _method: POST
+
+# custom route for form validation before calling ajax_parse
+article_valid_form_forParse:
+  pattern: /valid_form_forParse
+  defaults: { _controller: TribucaMainBundle:Article:valid_form_forParse }
+  requirements:
+    _method: POST
+
+article_ajax_list:
+  pattern: /ajax_list
+  defaults: { _controller: TribucaMainBundle:Article:ajax_list }
+  requirements:
+
+article_ajax_keywordlist:
+  pattern: /ajax_keywordlist
+  defaults: { _controller: TribucaMainBundle:Article:ajax_listKeyword }
+  requirements:
+
+article_ajax_toggle_is_finished:
+  pattern: /ajax_toggle_is_finished
+  defaults: { _controller: TribucaMainBundle:Article:ajax_toggleIsFinished }
+  requirements:
+    _method: POST
+
+article_ajax_toggle_is_favorite:
+  pattern: /ajax_toggle_is_favorite
+  defaults: { _controller: TribucaMainBundle:Article:ajax_toggleIsFavorite }
+  requirements:
+    _method: POST
+
+article_ajax_is_favorite:
+  pattern: /ajax_is_favorite
+  defaults: { _controller: TribucaMainBundle:Article:ajax_isFavorite }
+  requirements:
+    _method: POST

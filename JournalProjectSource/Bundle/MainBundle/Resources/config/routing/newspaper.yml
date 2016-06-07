@@ -1,0 +1,28 @@
+newspaper:
+    path:     /
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:index" }
+
+newspaper_new:
+    path:     /new
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:new" }
+
+newspaper_create:
+    path:     /create
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:create" }
+    requirements: { _method: post }
+
+newspaper_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:edit" }
+    requirements:
+        id:  \d+
+
+newspaper_update:
+    path:     /{id}/update
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:update" }
+    requirements: { _method: post|put }
+
+newspaper_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "TribucaMainBundle:NewsPaper:delete" }
+    requirements: { _method: post|delete }

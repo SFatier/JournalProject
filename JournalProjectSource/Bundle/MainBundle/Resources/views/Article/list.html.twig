@@ -1,0 +1,7 @@
+<ul>
+	{% for article in newspaper.articles %}
+	    <li><a href="{{ path('article_edit', {'id' : article.id } ) }}">{{ article.title }}</a>
+        </li>
+    {% endfor %}    
+</ul>
+<p> Total : {{ newspaper.articles|length }} </p>

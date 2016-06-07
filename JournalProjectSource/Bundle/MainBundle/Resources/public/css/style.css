@@ -1,0 +1,107 @@
+.error_list{
+	color:#FF0000;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#loader{
+	padding: 10px;
+}
+
+#headerTitleDateNumber {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.red{	
+	background:red;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color:#fff;
+}
+
+.small{
+	width:20px;
+	height:20px;
+}
+.big{
+	width:40px;
+	height:40px;
+}
+
+.green{
+	background:green;
+	font:bold 13px Arial;
+	border-radius:50%;
+	border:none;
+	color:#fff;
+}
+
+.form-group input{
+	width: 75%;
+}
+
+#tribuca_bundle_mainbundle_article_content{
+	height: 150px;
+	width: 75%;
+}
+#article-list ul{
+	max-height: 437px;
+	overflow-y: scroll;
+}
+
+.keyword_error{
+	border-color: #b94a48 !important;
+	box-shadow: 0 0 10px #b94a48 !important;
+}
+
+iframe.journal{
+	position: fixed;
+	width: 48%;
+	height: 88%;
+	bottom: 0;
+}
+
+div.article-header{
+	position: fixed;
+}
+
+#form_article{
+	padding: 10px;
+}
+
+.left-input {
+    overflow: hidden;
+    min-height: 30px;
+}
+
+.left-input input{
+	width: 70%;
+}
+#keywordaddtext{
+	width: 70%;
+}
+.right-input {
+	float: right;
+	width: 27px;
+	height: 27px;
+	margin-left: 5px;
+}
+
+.left-input-suggested {
+	float: left;
+	width: 20px;
+	height: 20px;
+	margin-right: 8px;
+}
+
+#multi-field-wrapper{
+	overflow-y: scroll;
+	height: 197px;
+}
+.modal-content #article-list{
+	max-height: 150px;
+}

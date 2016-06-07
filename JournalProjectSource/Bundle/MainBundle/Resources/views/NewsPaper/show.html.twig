@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Journal - {{ entity.number }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Intitulé</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Date de publication</th>
+                <td>{{ entity.publicationDate|date('d-m-Y') }} </td>
+            </tr>
+            <tr>
+                <th>Numéro</th>
+                <td>{{ entity.number }}</td>
+            </tr>
+            <tr>
+                <th>Fichier</th>
+                <td>{{ entity.path }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('newspaper') }}">
+                Retourner à la liste des journaux
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('newspaper_edit', { 'id': entity.id }) }}">
+                Éditer le journal
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('article_new', { 'newspaper_id': entity.id }) }}">
+                Enregistrer les articles
+            </a>
+        </li>
+        {{ form_start(delete_form) }}
+            {{ form_widget(delete_form.submit, { 'attr': {
+                                                            'onclick': 'return confirm("Êtes-vous certain de vouloir supprimer ce journal ?")',
+                                                            'class': 'btn btn-danger',
+                                                            } 
+                                                } ) }}
+        {{ form_end(delete_form) }}
+    </ul>
+{% endblock %}

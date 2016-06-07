@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Éditer un journal</h1>
+
+    {# form(form) #}
+
+    <form id="create_newspaper" action="{{ path('newspaper_update', {'id': entity.id} )}}" {{ form_enctype(edit_form) }} method="POST">
+
+        <input type="hidden" name="_method" value="PUT">
+    
+        <div class="form-group">
+            {{ form_label(edit_form.title) }}
+            {{ form_widget(edit_form.title) }} {{ form_errors(edit_form.title) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.publicationDate) }}
+            {{ form_widget(edit_form.publicationDate) }} {{ form_errors(edit_form.publicationDate) }}
+        <div class="form-group">
+            {{ form_label(edit_form.number) }}
+            {{ form_widget(edit_form.number) }} {{ form_errors(edit_form.number) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(edit_form.file) }} 
+            {{ form_widget(edit_form.file, { 'attr': { 'style' : 'display:none'} } ) }}
+            <div class="input-append">
+                <input id="fileCover" class="input-large" type="text" value="{{entity.path}}" disabled>
+                <a class="btn" onclick="$('input[id=tribuca_bundle_mainbundle_newspaper_file]').click();">Choisir un fichier</a>
+            </div>
+            {{ form_errors(edit_form.file) }}
+
+        </div>
+        {{ form_widget(edit_form._token) }} {# le token est obligatoire pour valider la session ouverte de l'utilisateur #}
+
+        <p><button type="submit" class="btn btn-success" id="submit_newspaper">Sauvegarder les modifications</button></p>
+
+        insérer ici les articles
+    </form>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form.submit, { 'attr': {
+                                                        'onclick': 'return confirm("Êtes-vous certain de vouloir supprimer ce journal ?")',
+                                                        'class': 'btn btn-danger',
+                                                        } 
+                                            } ) }}
+    {{ form_end(delete_form) }}
+    
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('newspaper') }}">
+                Retour à liste des journaux
+            </a>
+        </li>
+    </ul>
+
+    <script type="text/javascript">
+        $('input[id=tribuca_bundle_mainbundle_newspaper_file]').change(function() {
+            $('#fileCover').val($(this).val());
+        });
+    </script>
+
+{% endblock %}

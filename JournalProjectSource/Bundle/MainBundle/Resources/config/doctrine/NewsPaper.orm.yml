@@ -1,0 +1,40 @@
+Tribuca\Bundle\MainBundle\Entity\NewsPaper:
+    type: entity
+    table: null
+    repositoryClass: Tribuca\Bundle\MainBundle\Entity\NewsPaperRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        publicationDate:
+            type: date
+            column: publication_date
+            nullable: false
+        number:
+            type: string
+            length: '16'
+            nullable: true
+        path:
+            type: string
+            length: 255
+            nullable: true
+        is_finished:
+            type: boolean
+            nullable: false
+            options:
+                default: false
+    uniqueConstraints:
+        number_unique:
+            columns: number
+    oneToMany:
+        articles:
+            targetEntity: Article
+            mappedBy: newspaper
+    lifecycleCallbacks: {  }

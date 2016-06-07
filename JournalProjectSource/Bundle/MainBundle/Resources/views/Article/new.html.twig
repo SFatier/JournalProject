@@ -1,0 +1,102 @@
+{% extends '::base_fluid.html.twig' %}
+
+{% block javascripts %}
+	{{ parent() }}
+    <script src="{{ asset('bundles/tribucamain/js/article_new.js') }}"></script>
+{% endblock %}
+
+{% block body -%}
+	<div class="article-header">
+    	<img src="{{ asset('bundles/tribucamain/img/iconeJournal.png') }}" style="width:90px; height:90px;"/><a href="{{ path('newspaper') }}" style="font-size:24px;">Liste des journaux</a>
+	</div>
+
+    <div class="row-fluid">
+		<div class="span6">
+
+			<iframe  class="iframe_pdf journal" id="iframe_pdf" src="{{ asset(newspaper.getWebPath()) }}#{% if entity is defined %}page={{ entity.page }}&amp;{% endif %}zoom=75%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" height="800px" width="100%"></iframe>			
+		</div>
+		<form id="form_article" class="span6"  method="post">
+				<div id="top" class="row-fluid">
+					<div class="span7">
+			            <div id="headerTitleDateNumber" class="row">
+			                <div class="span10">N° {{ newspaper.number }}</div>
+			                <div class="span2 text-right">{{ newspaper.publicationDate|date('d-m-Y') }}</div>
+			            </div>
+							<div id="create_form">
+								{% include 'TribucaMainBundle:Article:main_form.html.twig' with {'form': form} %}
+							</div>
+						<p><input type="button" id="parse" onClick="analyze_article()" class="btn btn-default" value="Analyser l'article"></p>
+					</div>
+					<div class="span5">
+						<div>
+							{% if newspaper.isFinished == false %}
+								<p style="display:inline">Journal en cours <img id="is_finished" src="{{ asset('bundles/tribucamain/img/iconeBoutonRouge.png') }}"/><input id="is_finished_value" type="hidden" value="0"></p>
+							{% else %}
+								<p style="display:inline">Journal Terminé <img id="is_finished" src="{{ asset('bundles/tribucamain/img/iconeBoutonVert.png') }}"/><input id="is_finished_value" type="hidden" value="1"></p>
+							{% endif %}
+
+						</div>
+						{# if newspaper.articles|length > 0 #}
+							<p> Articles Indexés </p>
+							<div id="article-list">
+								{% include 'TribucaMainBundle:Article:list.html.twig' with {'newspaper': newspaper} %}
+							</div>
+					    {# endif #}
+					</div>
+				</div>
+					<hr>
+				<div id="bottom" class="row-fluid">
+				    <div class="span7">	
+						<div id="keyword_suggestions" class="form-group">
+						</div>	
+					</div>	
+
+					<div id="keywordbox" class="span5" {% if entity.id is empty %} style="display:none;" {% endif %} >
+						<div class="form-group">
+							<img id="loader" src="{{ asset('bundles/tribucamain/img/ajax-loader.gif') }}" style="display:none;">
+							<h4>Mots-clés personnalisés</h4>
+							<div id="keywordboxadd" class="input-append">
+								<input  id="keywordaddtext" maxlength="255" type="text" placeholder="Entrer manuellement un mot clé...">
+								<button id="keywordadd" type="button" class="btn btn-info"><i class="icon-plus icon-white"></i></button>
+							</div>
+                            <div id="multi-field-wrapper">
+                            <!-- <div id="multi-field-wrapper" style="height: 200px; overflow-y: scroll;"> -->
+							{% if entity is defined %}
+								{% for keyword in entity.keywords %}
+									<div class="multi-fields input-append">
+										{% if keyword.favorite == false %}
+											<div class="right-input"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-2.png') }}" value="{{keyword.name}}"></div>
+										{% else %}
+											<div class="right-input"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-1.png') }}" value="{{keyword.name}}"></div>
+										{% endif %}
+
+										<div class="left-input">
+										    <input type="text" value="{{ keyword.name }}" name="extra_fields[]">
+										    <button class="keywordremove btn btn-danger" onclick="keyword_remove(this)" type="button"><i class="icon icon-remove"></i></button>
+										</div>
+									</div>
+								{% endfor %}
+							{% endif %}
+							</div>
+						</div> 
+					</div>
+				</div>
+				<div id="nextarticle" {% if entity.id is empty %} style="display:none;" {% endif %} >
+					<button id="submit" type="button" onClick="saveAndContinue()" class="btn btn-success">Enregistrer et Continuer</button>
+				</div>
+                <input type="hidden" value="{{ path('article_ajax_save_and_continue')}}" id="pathSaveContinue" />
+                <input type="hidden" value="{{ path('article_ajax_save')}}" id="pathSave" />
+                <input type="hidden" value="{{ path('article_ajax_keywordlist')}}" id="pathKeywordList" />
+                <input type="hidden" value="{{ path('article_ajax_delete')}}" id="pathDelete" />
+                <input type="hidden" value="{{ path('article_ajax_list')}}" id="pathList" />
+                <input type="hidden" value="{{ path('article_ajax_toggle_is_finished')}}" id="pathToggleIsFinished" />
+                <input type="hidden" value="{{ path('article_ajax_parse')}}" id="pathParse" />
+                <input type="hidden" value="{{ path('article_ajax_toggle_is_favorite')}}" id="pathFav" />
+                <input type="hidden" value="{{ newspaper.id }}" id="newspaper_id" />
+                <input type="hidden" value="{{ asset('bundles/tribucamain/img/') }}" id="img_path" />
+                <input type="hidden" value="{{ asset('bundles/tribucamain/img/star-1.png') }}" id="is_favorite_img_path" />
+                <input type="hidden" value="{{ asset('bundles/tribucamain/img/star-2.png') }}" id="is_not_favorite_img_path" />
+                <input type="hidden" value="{{ path('article_ajax_is_favorite')}}" id="pathIsFavorite" />
+		</form>
+	</div>
+{% endblock %}

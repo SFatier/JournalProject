@@ -1,0 +1,80 @@
+{% extends '::searchengine_base.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<script src="js/jquery.media.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+{% endblock %}
+
+{% block body -%}
+<div class="container">     
+    <div class="span12">
+    <a href="{{ path('search_engine') }}"><img id="logoTribuca" src="{{ asset('bundles/tribucamain/img/logoTribuca.gif') }}"/></a>
+        <div class="row">
+            <div class="span8 input-append">
+    	        <input id="appendedInputSearch" type="text">
+    	        <button id="research" class="btn" type="button">Rechercher</button>
+            </div>
+            <div class="span4 form-inline">
+                <label>Trier par</label>
+                <select id="orderBy">
+                    <option></option>
+                    <option>Pertinence</option>
+                    <option>Date</option>
+                    <option>Auteur</option>
+                </select></span>
+            </div>
+        </div>
+        <div id="advanced_option">
+            <h3>Options avancées :</h3>
+            <div>
+                <div class="row">
+                    <div class="form-group span4 left-form">
+                        <label>Mois</label>
+                        <select id="appendedInputMonth">
+                            <option></option>
+                            <option value="1">Janvier</option>
+                            <option value="2">Février</option>s
+                            <option value="3">Mars</option>
+                            <option value="4">Avril</option>
+                            <option value="5">Mai</option>
+                            <option value="6">Juin</option>
+                            <option value="7">Juillet</option>
+                            <option value="8">Août</option>
+                            <option value="9">Septembre</option>
+                            <option value="10">Octobre</option>
+                            <option value="11">Novembre</option>
+                            <option value="12">Décembre</option>
+                        </select>
+                    </div>
+                    <div class="form-group span4 right-form">
+                        <label>Année</label>
+                        <input id="appendedInputYear" type="text" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group span4 left-form">
+                        <label>Numéro</label>
+                        <input id="appendedInputNum" type="text" />
+                    </div>
+                    <div class="form-group span4 right-form">
+                        <label>Auteur</label>
+                        <input id="appendedInputAuthor" type="text" />
+                    </div>
+                </div>
+                <button id="clearForm" type="button">Effacer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="results_search" class="row-fluid">
+    <div id="numberArticles" class="span12"></div>
+    <div class="row">
+        <input type="hidden" id="path_search" value="{{ path('search') }}" />
+        <table id="result_table" class="table row-fluid"></table>
+    </div>
+</div>
+
+
+{% endblock %}

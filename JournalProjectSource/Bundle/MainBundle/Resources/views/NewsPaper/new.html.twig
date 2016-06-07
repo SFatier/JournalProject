@@ -1,0 +1,76 @@
+{% form_theme form 'TribucaMainBundle:Form:form_div_layout.html.twig' %}
+{#{% form_theme form 'TribucaMainBundle:forms:fields_errors.html.twig' %}#}
+
+<div id="newModal" class="modal fade" style="display: none;" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ modaltitle }}</h4>
+            </div>
+            <div class="modal-body">
+                {# form(form) #}
+                {% if (entity is defined) and (form_path != "newspaper_create") %}
+                    <form id="create_newspaper" action="{{ path(form_path, {'id': entity.id} )}}" {{ form_enctype(form) }} method="POST">
+                        <input type="hidden" name="_method" value="PUT" />
+                {% else %}
+                    <form id="create_newspaper" action="{{ path(form_path) }}" {{ form_enctype(form) }} method="POST">
+                {% endif %}
+                    <div class="form-group col-md-12" id="oldfileiddiv">
+                        {{ form_label(form.file) }}
+                        {{ form_widget(form.file, { 'attr': { 'style' : 'display:none'} } ) }}
+                        <div class="input-append">
+                            <input id="fileCover" class="input-large" type="text" value="{{entity.path}}" disabled>
+                            {% if (form_path == "newspaper_create") %}
+                                <a class="btn" onclick="$('input[id=tribuca_bundle_mainbundle_newspaper_file]').click();">Choisir un fichier</a>
+                            {% endif %}
+                        </div>
+                        {{ form_errors(form.file, { 'attr': { 'class' : 'error'} } ) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title) }} {{ form_errors(form.title) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.publicationDate) }}
+                        {{ form_widget(form.publicationDate, { 'attr': { 'placeholder' : 'ex: 01-01-2015'} }) }} <span> {{ form_errors(form.publicationDate) }} </span>
+                        <div class="form-group">
+                            {{ form_label(form.number) }}
+                            {{ form_widget(form.number) }} {{ form_errors(form.number) }}
+                        </div>
+                        {{ form_widget(form._token) }} {# le token est obligatoire pour valider la session ouverte de l'utilisateur #}
+                        <p class="pull-left"><button type="submit" class="btn btn-success" id="submit_newspaper">Enregistrer</button></p>
+                        {% if (entity is defined) and (form_path != "newspaper_create") %}
+                            <p class="pull-right"><p class="pull-left"><button type="submit" name="article_destination" value="true" class="btn btn-default pull-righ" id="submit_newspaper">Enregistrer les articles</button></p></p>
+                        {% endif %}
+
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+            <div id="article-list">
+                {% if entity.articles|length != 0 %}
+                    <h4>Liste des articles enregistrés</h4>
+                    {% include 'TribucaMainBundle:Article:list.html.twig' with {'newspaper': entity} %}
+                {% endif %}
+            <!-- </div> -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+<script type="text/javascript">
+
+    if($('#showModalNew').val() == true) {
+        $('#newModal').modal('show');
+        {% if (entity is defined) and (form_path != "newspaper_create") %}
+        $("#tribuca_bundle_mainbundle_newspaper_file").attr('disabled', 'disabled');
+        {% endif %}
+    }
+    
+    $('#newModal').on('hidden.bs.modal', function (e) {
+        document.location.href="{{ path( 'newspaper' ) }}";
+    });
+    
+    $('input[id=tribuca_bundle_mainbundle_newspaper_file]').change(function() {
+        $('#fileCover').val($(this).val());
+    });
+</script>

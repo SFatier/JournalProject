@@ -1,0 +1,6 @@
+search_engine:
+    path:     /
+    defaults: { _controller: "TribucaMainBundle:SearchEngine:index" }
+search:
+    path:     /search
+    defaults: { _controller: "TribucaMainBundle:SearchEngine:search" }

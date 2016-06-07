@@ -1,0 +1,7 @@
+parameters:
+#    tribuca_main.example.class: Tribuca\Bundle\MainBundle\Example
+
+services:
+#    tribuca_main.example:
+#        class: %tribuca_main.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

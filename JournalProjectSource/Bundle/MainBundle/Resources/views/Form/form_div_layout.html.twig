@@ -1,0 +1,15 @@
+# file : form_div_layout.html.twig
+# Gestion des éléments des formulaires pour la section newspaper
+
+#
+# Gestion des messages d'erreurs
+#
+{%- block form_errors -%}
+{%- if errors|length > 0 -%}
+<div class="alert alert-danger">
+    {%- for error in errors -%}
+    <span>{{ error.message }}</span><br />
+    {%- endfor -%}
+</div>
+{%- endif -%}
+{%- endblock form_errors -%}

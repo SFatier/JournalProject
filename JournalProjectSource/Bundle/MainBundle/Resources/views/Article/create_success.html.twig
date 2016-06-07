@@ -1,0 +1,10 @@
+{% include 'TribucaMainBundle:Article:main_form.html.twig' with {'form': form, 'entity' : entity} %}
+
+<div id="create_success" class="alert alert-success" style="display: none">
+	<button type="button" class="close" data-dismiss="alert">×</button>
+	L'article "{{ title }}" a bien été enregistré.
+</div>
+
+<script type="text/javascript">
+	$('#create_success').fadeIn();
+</script>

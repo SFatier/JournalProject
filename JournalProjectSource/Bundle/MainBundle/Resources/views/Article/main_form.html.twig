@@ -1,0 +1,43 @@
+{% form_theme form 'TribucaMainBundle:Form:form_div_layout.html.twig' %}
+<div class="form-group">
+	{{ form_label(form.title) }}
+	{{ form_widget(form.title) }} {{ form_errors(form.title) }}
+</div>
+<div class="form-group">
+	{{ form_label(form.page)}}
+	{{ form_widget(form.page, { 'attr': { 'min' : '1', 'step' : '1'} }) }} {{ form_errors(form.page) }}
+</div>
+<div class="form-group">
+	{{ form_label(form.author) }}
+	{{ form_widget(form.author) }} {{ form_errors(form.author) }}
+</div>
+
+<div class="form-group">
+	{{ form_label(form.content) }}
+	{{ form_widget(form.content, { 'attr': { 'onclick' : 'setCursorToTheEnd(this)'} }) }} {{ form_errors(form.content) }}
+</div>
+
+<script type="text/javascript">
+	function setCursorToTheEnd(area){
+		area.setSelectionRange(area.value.length,area.value.length);
+		// @todo : ajouter un espace
+	}
+</script>
+<div style="display: none">{{ form_widget(form.newspaper) }}</div>
+{% if entity is defined %}
+	<input id="article_id" name="article_id" type="hidden" value="{{ entity.id }}">
+{% else %}
+	<input id="article_id" name="article_id" type="hidden" value="">
+{% endif %}
+{{ form_widget(form._token) }}
+
+
+<p>	 
+    {% if entity is defined %}
+    	{% if entity.id != "" %}
+    	    <input id="delete" type="button" onClick="deleteArticle()" class="btn btn-danger" value="Supprimer" display="none">
+    	{% endif %}
+    {% endif %}   
+	<a href="{{ path('newspaper_edit', {'id': newspaper.id}) }}" class="btn btn-default">Annuler</a>
+	<input type="button" id="save" onClick="saveArticle()" class="btn btn-success" value="Enregistrer">
+</p>

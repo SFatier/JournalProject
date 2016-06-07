@@ -1,0 +1,15 @@
+tribuca_main_article:
+    resource: "@TribucaMainBundle/Resources/config/routing/article.yml"
+    prefix:   /article
+
+tribuca_main_search_engine:
+    resource: "@TribucaMainBundle/Resources/config/routing/search_engine.yml"
+    prefix:   /search_engine
+
+# tribuca_main_homepage:
+#     path:     /hello/{name}
+#     defaults: { _controller: TribucaMainBundle:Default:index }
+
+TribucaMainBundle_newspaper:
+    resource: "@TribucaMainBundle/Resources/config/routing/newspaper.yml"
+    prefix:   /

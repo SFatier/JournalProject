@@ -1,0 +1,75 @@
+# src/Acme/BlogBundle/Resources/config/validation.yml
+Tribuca\Bundle\MainBundle\Entity\NewsPaper:
+    properties:
+        title:
+            - Length:
+                groups:  [New, Edit]
+                max: 255
+                maxMessage: "L'intitulé ne peut excéder 255 caractères"
+        publicationDate:        
+            - Date: ~                
+        publicationDate:
+            - Date: ~
+            - NotNull:
+                groups:  [New, Edit]
+                message: "La date doit être renseignée"
+            - Tribuca\Bundle\MainBundle\Validator\Constraints\DateRange:
+                groups:  [New, Edit]
+                max: "tomorrow"
+                min: "01-01-2007"
+        file:
+            - NotNull:
+                groups:  [New]
+                message: "Choisissez un fichier pdf"
+            - File:
+                groups:  [New, Edit]
+                maxSize: 26624k
+                maxSizeMessage: "Le fichier ne peut excéder 26 Mo"
+                mimeTypes: [application/pdf, application/x-pdf]
+                mimeTypesMessage: Choisissez un fichier PDF valide
+        number:
+            - NotNull:
+                groups:  [New, Edit]
+                message: "Le numéro de journal doit être renseigné"
+            - Length:
+                groups:  [New, Edit]
+                max: 16
+                maxMessage: "Le numéro de journal ne peut excéder 16 caractères"
+Tribuca\Bundle\MainBundle\Entity\Article:
+    properties:
+        title:
+            - NotNull:
+                message: "Le titre de l'article doit être renseigné."
+            - Length:
+                max: 255
+                maxMessage: "Le titre ne peut excéder 255 caractères"
+        page:
+            - NotNull:
+                message: "Le numéro de page doit être renseigné."        
+            - Range:
+                min: 1
+                max: 200
+                minMessage: "La page est un nombre compris entre 1 et 200"
+                maxMessage: "La page est un nombre compris entre 1 et 200"    
+        author:
+            - NotNull:
+                message: "L'auteur doit être renseigné"    
+            - Length:
+                max: 255
+                maxMessage: "L'auteur ne peut excéder 255 caractères"
+        # beginning:
+        #     - NotNull:
+        #         message: "Le début de l'article doit être renseigné"    
+        #     - Length:
+        #         min: 110
+        #         max: 1024
+        #         minMessage: "Le début de l'article doit contenir au moins 110 caractères"  
+        #         maxMessage: "Le début de l'article ne peut excéder 1024 caractères"      
+        # end:
+        #     - NotNull:
+        #         message: "La fin de l'article doit être renseignée"    
+        #     - Length:
+        #         min: 110
+        #         max: 1024
+        #         minMessage: "La fin de l'article doit contenir au moins 110 caractères"  
+        #         maxMessage: "La fin de l'article ne peut excéder 1024 caractères"                               

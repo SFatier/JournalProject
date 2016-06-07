@@ -1,0 +1,39 @@
+Tribuca\Bundle\MainBundle\Entity\Keyword:
+    type: entity
+    table: null
+    repositoryClass: Tribuca\Bundle\MainBundle\Entity\KeywordRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        favorite:
+            type: boolean
+            nullable: false 
+            options:
+                default: false
+    uniqueConstraints:
+        name_unique:
+            columns: name
+    manyToMany:
+        articles:
+            targetEntity: Article
+            inversedBy: keywords
+            joinTable:
+                name: article_keyword
+                joinColumns:
+                    keyword_id:
+                        referencedColumnName: id
+                        nullable: false
+                inverseJoinColumns:
+                    article_id:
+                        referencedColumnName: id
+                        nullable: false
+                        onDelete: CASCADE
+    lifecycleCallbacks: {  }
+

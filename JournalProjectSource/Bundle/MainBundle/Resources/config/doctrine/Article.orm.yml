@@ -1,0 +1,38 @@
+Tribuca\Bundle\MainBundle\Entity\Article:
+    type: entity
+    table: null
+    repositoryClass: Tribuca\Bundle\MainBundle\Entity\ArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        page:
+            type: integer
+        content:
+            type: text
+            nullable: true
+        author:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        newspaper:
+            targetEntity: NewsPaper
+            inversedBy: articles
+            joinColumns:
+                newspaper_id:
+                    referencedColumnName: id
+                    onDelete: CASCADE
+    # uniqueConstraint : title, page, newspaper
+    manyToMany:
+        keywords:
+            targetEntity: Keyword
+            mappedBy: articles
+            cascade: ["merge"]
+    lifecycleCallbacks: {  }

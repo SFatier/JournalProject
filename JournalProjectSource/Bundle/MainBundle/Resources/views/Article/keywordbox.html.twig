@@ -1,0 +1,14 @@
+{% for keyword in article.keywords %}
+	<div class="multi-fields input-append">
+		{% if keyword.favorite == false %}
+			<div class="right-input"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-2.png') }}" value="{{keyword.name}}"></div>
+		{% else %}
+			<div class="right-input"><img id="is_favorite" onclick="toggle_is_favorite(this);" src="{{ asset('bundles/tribucamain/img/star-1.png') }}" value="{{keyword.name}}"></div>
+		{% endif %}
+
+		<div class="left-input">
+		    <input type="text" value="{{ keyword.name }}" name="extra_fields[]">
+		    <button class="keywordremove btn btn-danger" onclick="keyword_remove(this)" type="button"><i class="icon icon-remove"></i></button>
+		</div>
+	</div>
+{% endfor %}
